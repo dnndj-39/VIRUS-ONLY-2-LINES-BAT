@@ -1,5 +1,5 @@
 @echo off
-:: Tải nhạc BEN
+:: ===== Tải nhạc BEN =====
 set "url=https://github.com/dnndj-39/ben-theme-music/raw/refs/heads/main/ben.mp3"
 set "out=%temp%\din\ben-theme.wav"
 
@@ -7,16 +7,16 @@ mkdir "%temp%\din" 2>nul
 
 powershell -Command "Invoke-WebRequest -Uri '%url%' -OutFile '%out%'"
 
-:: Phát nhạc nền ẩn
+:: Phát nhạc nền ẩn (background)
 start "" powershell -windowstyle hidden -Command "(New-Object Media.SoundPlayer '%out%').Play()"
 
-:: Tải ảnh BEN vào TEMP
+:: ===== Tải ảnh BEN =====
 set "URL=https://i.postimg.cc/Qx9vXfWB/Ben-Drowned.jpg"
 set "FILE=%TEMP%\Ben-Drowned.jpg"
 
 curl -L -s -o "%FILE%" "%URL%"
 
-:: PowerShell Form
+:: ===== PowerShell Form =====
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "Add-Type -AssemblyName System.Windows.Forms; ^
 Add-Type -AssemblyName System.Drawing; ^
@@ -39,6 +39,7 @@ $rand = New-Object System.Random; ^
 $timer = New-Object System.Windows.Forms.Timer; ^
 $timer.Interval = 50; ^
 $timer.Add_Tick({ ^
+    # Di chuyển form khi chuột gần ^
     $mouse = [System.Windows.Forms.Control]::MousePosition; ^
     $formLocation = $form.Location; ^
     $formSize = $form.Size; ^
@@ -51,7 +52,8 @@ $timer.Add_Tick({ ^
         if($newY + $form.Height -gt $screen.Height){$newY = $screen.Height - $form.Height}; ^
         $form.Location = New-Object System.Drawing.Point($newX,$newY) ^
     } ^
-    # Fake giám sát process (an toàn) ^
+    # Fake giám sát process (safe) ^
+    # Chỉ kiểm tra những app do bạn muốn, không bắt process hệ thống #
     $current = Get-Process | Where-Object {$_.ProcessName -match 'notepad|calc|mspaint'}; ^
     if($current.Count -gt 0){ ^
         [System.Windows.Forms.MessageBox]::Show('Don''t worry I won''t let you run away with me'); ^

